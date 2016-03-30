@@ -6,6 +6,19 @@ var User = require('../models/user.model.js');
 
 
 router.post('/register', function(req, res) {
+  User.register(new User({ username: req.body.username }),
+req.body.password, function(err, account) {
+if (err) {
+return res.status(500).json({
+err: err
+});
+}
+passport.authenticate('local')(req, res, function () {
+return res.status(200).json({
+status: 'Registration successful!'
+});
+});
+});
   //registration route for signing up users
 });
 
